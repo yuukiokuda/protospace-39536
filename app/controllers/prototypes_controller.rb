@@ -1,6 +1,7 @@
 class PrototypesController < ApplicationController
   before_action :set_prototype, only: [:edit, :show]
-  before_action :move_to_index, only: [:new, :destroy]
+  before_action :authenticate_user!, only: [:new, :destroy, :edit]
+  # before_action :move_to_index, only: [:new, :destroy]
   def index
     @prototypes = Prototype.includes(:user)
   end
@@ -55,9 +56,9 @@ class PrototypesController < ApplicationController
     # redirect_to action: :index if @prototype.nil? # もし見つからない場合はindexにリダイレクトする
   end
 
-  def move_to_index
-    unless user_signed_in?
-      redirect_to action: :index
-    end
-  end
+  # def move_to_index
+  #   unless user_signed_in?
+  #     redirect_to action: :index
+  #   end
+  # end
 end
